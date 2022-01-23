@@ -30,9 +30,9 @@ public class UserController {
 		System.out.println("UserController>login");
 		System.out.println(userVo);
 		
-		userDao.getUser(userVo);
+		UserVo authUser = userDao.getUser(userVo);
 		
-		return "";
+		return "redirect:/mysite4/user/loginForm";
 	}
 	
 	

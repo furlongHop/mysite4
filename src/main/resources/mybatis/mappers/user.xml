@@ -3,6 +3,14 @@
 
 <mapper namespace="user">
 	
-	
+	<select id="getUser" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+    	<![CDATA[
+    		select  no,
+        			name
+			from users
+			where id = #{id}
+			and password = #{password}
+    	]]>
+    </select>
 
 </mapper>

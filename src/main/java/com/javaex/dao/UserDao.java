@@ -14,11 +14,13 @@ public class UserDao {
 	
 	
 	//유저 정보 가져오기(로그인 때 사용)
-	public void getUser(UserVo userVo) {
+	public UserVo getUser(UserVo userVo) {
 		System.out.println("UserDao>getUser");
 		System.out.println(userVo);
 		
+		UserVo authUser = sqlSession.selectOne("user.getUser", userVo);
 		
+		return authUser;
 	}
 
 }
