@@ -9,9 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet"
 	type="text/css">
-<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet"
 	type="text/css">
 
 </head>
@@ -46,7 +46,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite4/guestbook/add" method="get">
+					<form action="${pageContext.request.contextPath}/guestbook/add" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -61,7 +61,7 @@
 									<td><input id="input-uname" type="text" name="name"></td>
 									<th><label class="form-text" for="input-pass">패스워드</label>
 									</td>
-									<td><input id="input-pass" type="password" name="pass"></td>
+									<td><input id="input-pass" type="password" name="password"></td>
 								</tr>
 								<tr>
 									<td colspan="4"><textarea name="content" cols="72"
@@ -90,7 +90,7 @@
 							<td>${gbVo.no}</td>
 							<td>${gbVo.name}</td>
 							<td>${gbVo.regDate}</td>
-							<td><a href="/mysite4/guestbook/deleteForm?no=${gbVo.no}">삭제</a></td>
+							<td><a href="${pageContext.request.contextPath}/guestbook/deleteForm?no=${gbVo.no}">삭제</a></td>
 						</tr>
 						<tr>
 							<td colspan=4 class="text-left">${gbVo.content}</td>

@@ -21,14 +21,14 @@ public class GuestbookController {
 	private GuestbookDao guestbookDao;
 	
 	//방명록 리스트 불러오기
-	@RequestMapping(value="/addList")
+	@RequestMapping(value="/list")
 	public String addList(Model model) {
 		System.out.println("GuestbookController>addList");
 		
 		List<GuestbookVo> gbList = guestbookDao.getList();
 		model.addAttribute("gbList", gbList);
 		
-		return "/guestbbok/addList";
+		return "/guestbook/addList";
 	} 
 	
 	//방명록 추가
@@ -38,7 +38,7 @@ public class GuestbookController {
 		
 		guestbookDao.guestbookInsert(gbVo);
 		
-		return "redirect:/guestbook/addList";
+		return "redirect:/guestbook/list";
 	} 
 	
 	

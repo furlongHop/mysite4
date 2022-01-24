@@ -4,15 +4,15 @@
 <mapper namespace="guestbook">
 
 	<!-- 방명록 리스트 불러오기 -->
-	<select id="getList" resultType="com.javaex.vo.GuestbookVo">
+	<select id="selectList" resultType="com.javaex.vo.GuestbookVo">
     	<![CDATA[
     		select	no,
        			 	name,
         			password,
         			content,
-        			to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date
+        			to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') regDate
 			from guestbook
-			order by reg_date desc
+			order by regDate desc
     	]]>
 	</select>
 	
