@@ -13,17 +13,24 @@ public class UserService {
 	private UserDao userDao;
 	
 	
-	
-	public UserVo login(UserVo userVo) {
-		userDao.selectUser(userVo);
+	//로그인-회원 정보 가져오기
+	public UserVo getUser(UserVo userVo) {
 		
-		return userVo;
+		UserVo authUser = userDao.selectUser(userVo);
+		
+		return authUser;
 	}
 
-	public UserVo join(UserVo userVo) {
+	//회원가입
+	public void join(UserVo userVo) {
 		userDao.userInsert(userVo);
-		
-		return userVo;
+
 	}
 	
+	//회원 정보 수정
+	public void modify(UserVo userVo) {
+		
+		userDao.userUpdate(userVo);
+		
+	}
 }

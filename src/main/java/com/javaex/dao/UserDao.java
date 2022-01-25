@@ -13,7 +13,7 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	
-	//유저 정보 가져오기(로그인 때 사용)
+	//유저 정보 가져오기(로그인 때 사용)-return 필요
 	public UserVo selectUser(UserVo userVo) {
 		System.out.println("UserDao>selectUser");
 		System.out.println(userVo);
@@ -29,6 +29,15 @@ public class UserDao {
 		
 		int count = sqlSession.insert("user.insert", userVo);
 		System.out.println("유저" + count + "명이 새로 가입했습니다.");
+		
+		return count;
+	}
+	
+	//회원정보 수정하기
+	public int userUpdate(UserVo userVo) {
+		
+		int count = sqlSession.update("user.update", userVo);
+		System.out.println(count + "건 수정되었습니다.");
 		
 		return count;
 	}

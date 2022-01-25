@@ -7,7 +7,10 @@
 	<select id="selectUser" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
     	<![CDATA[
     		select  no,
-        			name
+        			id,
+        			password,
+        			name,
+        			gender
 			from users
 			where id = #{id}
 			and password = #{password}

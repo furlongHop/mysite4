@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +37,7 @@ public class UserController {
 		System.out.println("UserController>login");
 		System.out.println(userVo);
 
-		UserVo authUser = userService.login(userVo);
+		UserVo authUser = userService.getUser(userVo);
 		System.out.println(authUser);
 
 		if (authUser != null) {// 로그인 성공
@@ -44,6 +45,7 @@ public class UserController {
 
 			// 세션 주소를 받아 세션 어트리뷰트에 로그인한 유저 정보 저장
 			session.setAttribute("authUser", authUser);
+		
 			// 메인으로 리다이렉트
 			return "redirect:/main";
 		} else {// 로그인 실패
@@ -88,11 +90,14 @@ public class UserController {
 	
 	//회원 정보 수정폼
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
-	public String modify() {
+	public String modify(@ModelAttribute UserVo userVo, Model model) {
 		System.out.println("UserController>modify");
 
-	
-
+		userService.modify(userVo);
+		
+		UserVo authUser = userService.getUser(userVo);
+		model.addAttribute("authUser", authUser);
+		
 		return "redirect:/main";
 	}
 	
@@ -101,7 +106,7 @@ public class UserController {
 	public String modifyForm() {
 		System.out.println("UserController>modiftForm");
 
-	
+		
 
 		return "user/modifyForm";
 	}

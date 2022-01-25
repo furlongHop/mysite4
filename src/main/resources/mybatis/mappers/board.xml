@@ -3,11 +3,12 @@
 
 <mapper namespace="board">
 	
+	<!-- no가 두 개 있으므로 확실히 명시할 것 -->
 	<!-- 게시판 목록 -->
 	<select id="selectList" resultType="com.javaex.vo.BoardVo">
     	<![CDATA[
-	    	select	u.no,
-	       			u.name,
+	    	select	user_no userNo,
+	       			u.name userName,
 	        		bd.no,
 	        		bd.title,
 	        		bd.content,
@@ -29,15 +30,15 @@
 	</update>
 	
 	<!-- 특정 게시글 선택 -->
-	<select id="selectOne" parameterType="int">
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BoardVo">
     	<![CDATA[
-		    select  bd.no,
+		    select  bd.no no,
 			        bd.title,
 			        bd.content,
 			        bd.hit,
 			        to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
-			        u.name,
-			        u.no uno
+			        u.name userName,
+			        user_no userNo
 			from board bd, users u
 			where bd.user_no = u.no
 			and bd.no = #{no}
