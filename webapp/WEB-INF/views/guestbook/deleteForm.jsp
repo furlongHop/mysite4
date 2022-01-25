@@ -57,7 +57,7 @@
 							</colgroup>
 							<tr>
 								<td>비밀번호</td>
-								<td><input type="password" name="pass"></td>
+								<td><input type="password" name="password"></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
 								<td><a href="${pageContext.request.contextPath}/main">[메인으로 돌아가기]</a></td>
 							</tr>

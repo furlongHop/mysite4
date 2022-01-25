@@ -88,20 +88,22 @@ public class UserController {
 		return "user/joinOk";
 	}
 	
-	//회원 정보 수정폼
+	//회원 정보 수정
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modify(@ModelAttribute UserVo userVo, Model model) {
 		System.out.println("UserController>modify");
 
+		//회원 정보 수정
 		userService.modify(userVo);
 		
+		//수정된 회원 정보 불러오기
 		UserVo authUser = userService.getUser(userVo);
-		model.addAttribute("authUser", authUser);
+		model.addAttribute("authUser", authUser);//로그인 유저 정보 업데이트
 		
 		return "redirect:/main";
 	}
 	
-	//회원정보 수정
+	//회원정보 수정폼
 	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modifyForm() {
 		System.out.println("UserController>modiftForm");

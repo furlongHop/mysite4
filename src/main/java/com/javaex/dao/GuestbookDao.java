@@ -1,6 +1,5 @@
 package com.javaex.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,7 +36,7 @@ public class GuestbookDao {
 	}
 	
 	//방명록 삭제
-	public int guestbookDelete(int no, String password) {
+	public GuestbookVo guestbookDelete(int no, String password) {
 		System.out.println("guestbookDelete");
 		
 		//<map> 사용해보기
@@ -45,7 +44,7 @@ public class GuestbookDao {
 		int count = sqlSession.delete("guestbook.delete", guestbookVo);//("namespace.id",parameterType)
 		System.out.println(count + "건 삭제되었습니다.");
 		
-		return count;
+		return guestbookVo;
 	}
 	
 	

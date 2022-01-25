@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javaex.dao.GuestbookDao;
+import com.javaex.service.GuestbookService;
 import com.javaex.vo.GuestbookVo;
 
 @RequestMapping(value="/guestbook",method= {RequestMethod.GET,RequestMethod.POST})
@@ -18,14 +18,14 @@ import com.javaex.vo.GuestbookVo;
 public class GuestbookController {
 
 	@Autowired
-	private GuestbookDao guestbookDao;
+	private GuestbookService guestbookService;
 	
 	//방명록 리스트 불러오기
 	@RequestMapping(value="/list")
 	public String addList(Model model) {
 		System.out.println("GuestbookController>addList");
 		
-		List<GuestbookVo> gbList = guestbookDao.getList();
+		List<GuestbookVo> gbList = guestbookService.getList();
 		model.addAttribute("gbList", gbList);
 		
 		return "/guestbook/addList";
@@ -36,7 +36,7 @@ public class GuestbookController {
 	public String add(@ModelAttribute GuestbookVo gbVo) {
 		System.out.println("GuestbookController>add");
 		
-		guestbookDao.guestbookInsert(gbVo);
+		guestbookService.add(gbVo);
 		
 		return "redirect:/guestbook/list";
 	} 
@@ -50,7 +50,7 @@ public class GuestbookController {
 		
 		
 		
-		return "guestbook/delteForm";
+		return "guestbook/deleteForm";
 	} 
 	
 	//방명록 삭제하기
@@ -58,9 +58,9 @@ public class GuestbookController {
 	public String delete(@RequestParam("no") int no, @RequestParam("password") String pass) {
 		System.out.println("GuestbookController>delete");
 		
-		guestbookDao.guestbookDelete(no, pass);
+		guestbookService.delete(no, pass);
 		
-		return "redirect:/guestbook/addList";
+		return "redirect:/guestbook/list";
 	} 
 	
 }
