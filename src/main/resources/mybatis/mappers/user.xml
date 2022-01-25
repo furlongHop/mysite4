@@ -23,10 +23,12 @@
     </insert>
     
       <!-- 회원 정보 수정 -->
-	<update id="update" parameterType="com.javaex.vo.UserVo">
+	<update id="update" parameterType="com.javaex.vo.UserVo" >
     	<![CDATA[
     		update  users
-			set id = #{id}
+			set id = #{name},
+					 #{password},
+					 #{gender}
 			where no = #{no}
     	]]>
     </update>

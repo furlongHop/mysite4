@@ -78,10 +78,10 @@ public class UserController {
 	
 	//회원가입
 	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
-	public String join() {
+	public String join(@ModelAttribute UserVo userVo) {
 		System.out.println("UserController>join");
 
-	
+		userService.join(userVo);
 
 		return "user/joinOk";
 	}

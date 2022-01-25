@@ -20,4 +20,10 @@ public class UserService {
 		return userVo;
 	}
 
+	public UserVo join(UserVo userVo) {
+		userDao.userInsert(userVo);
+		
+		return userVo;
+	}
+	
 }

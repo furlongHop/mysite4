@@ -22,5 +22,15 @@ public class UserDao {
 		
 		return authUser;
 	}
+	
+	//유저 정보 추가하기(회원가입)
+	public int userInsert(UserVo userVo) {
+		System.out.println("UserDao>userInsert");
+		
+		int count = sqlSession.insert("user.insert", userVo);
+		System.out.println("유저" + count + "명이 새로 가입했습니다.");
+		
+		return count;
+	}
 
 }
