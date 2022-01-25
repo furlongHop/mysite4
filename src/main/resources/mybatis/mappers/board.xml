@@ -27,5 +27,48 @@
 			where no = #{no}
     	]]>
 	</update>
+	
+	<!-- 특정 게시글 선택 -->
+	<select id="selectOne" parameterType="int">
+    	<![CDATA[
+		    select  bd.no,
+			        bd.title,
+			        bd.content,
+			        bd.hit,
+			        to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
+			        u.name,
+			        u.no uno
+			from board bd, users u
+			where bd.user_no = u.no
+			and bd.no = #{no}
+    	]]>
+	</select>
 
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+    	<![CDATA[
+		    delete from board
+		    where no = #{no}
+    	]]>
+	</delete>
+	
+	<!-- 게시글 추가 -->
+	<insert id="insert" parameterType="com.javaex.vo.BoardVo">
+    	<![CDATA[
+	    	insert into board
+			values(seq_board_no.nextval, #{title}, #{content}, 0 , sysdate , #{userNo} )
+    	]]>
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="com.javaex.vo.BoardVo">
+    	<![CDATA[
+	    	update board
+	    	set #{title},
+	    		#{content}
+	    	where no = #{no}
+    	]]>
+	</update>
+	
 </mapper>

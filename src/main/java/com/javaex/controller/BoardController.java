@@ -26,7 +26,7 @@ public class BoardController {
 		List<BoardVo> boardList = boardService.list();
 		model.addAttribute("boardList", boardList);
 		
-		return "redirect:/board/list";
+		return "board/list";
 	}
 	
 	// 게시글 읽기
