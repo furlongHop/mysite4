@@ -90,15 +90,18 @@ public class UserController {
 	
 	//회원 정보 수정
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
-	public String modify(@ModelAttribute UserVo userVo, Model model) {
+	public String modify(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("UserController>modify");
 
 		//회원 정보 수정
 		userService.modify(userVo);
 		
+		//기존에 있던 로그인 정보 삭제
+		session.removeAttribute("authUser");
 		//수정된 회원 정보 불러오기
 		UserVo authUser = userService.getUser(userVo);
-		model.addAttribute("authUser", authUser);//로그인 유저 정보 업데이트
+		//수정된 회원 정보 세션에 저장
+		session.setAttribute("authUser", authUser);
 		
 		return "redirect:/main";
 	}
