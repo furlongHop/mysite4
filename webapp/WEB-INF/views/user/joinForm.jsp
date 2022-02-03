@@ -8,9 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet"
-	type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.js"></script>
 
 </head>
 
@@ -20,14 +21,7 @@
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>회원</h2>
-				<ul>
-					<li>회원정보</li>
-					<li>로그인</li>
-					<li>회원가입</li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -110,5 +104,31 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+	
+	$("#btn-submit").on("click", function(){
+		console.log("회원가입 버튼 클릭");
+		
+		var id = $("#input-uid").val();
+		var pw = $("#input-pass").val();
+		
+		if(id == null){
+			alert("아이디를 입력해주세요.");
+			return false;
+		};
+		if(pw == ""){
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		};
+		
+		return true;
+	});
+	
+
+
+
+</script>
+
 
 </html>

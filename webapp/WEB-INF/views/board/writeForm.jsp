@@ -19,24 +19,8 @@
 
 	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
-			</ul>
-		</div>
-		<!-- //nav -->
-
 		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">

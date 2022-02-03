@@ -68,5 +68,15 @@ public class GuestbookDao {
 		return guestbookVo;
 	}
 	
+	//방명록 삭제 ajax
+	public int delete(GuestbookVo guestbookVo) {
+		System.out.println("guestbookDelete");
+		
+		int count = sqlSession.delete("guestbook.delete", guestbookVo);//("namespace.id",parameterType)
+		System.out.println(count + "건 삭제되었습니다.");
+		
+		return count;
+	}
+	
 	
 }
