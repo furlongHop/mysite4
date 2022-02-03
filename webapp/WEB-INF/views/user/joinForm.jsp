@@ -113,7 +113,7 @@
 		var id = $("#input-uid").val();
 		var pw = $("#input-pass").val();
 		
-		if(id == null){
+		if(id == ""){
 			alert("아이디를 입력해주세요.");
 			return false;
 		};
