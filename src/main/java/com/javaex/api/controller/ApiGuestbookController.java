@@ -70,7 +70,7 @@ public class ApiGuestbookController {
 		System.out.println(guestbookVo);
 		
 		String result = guestbookService.remove(guestbookVo);
-		//"success" "fail"
+		//result = "success" or "fail"
 		System.out.println(result);
 		
 		return result;

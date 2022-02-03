@@ -41,21 +41,19 @@ public class GuestbookService {
 	}
 	
 	//방명록 삭제
-	public GuestbookVo delete(int no, String pass) {
+	public int delete(GuestbookVo guestbookVo) {
+		System.out.println("guestbookService/delete");
 		
-		GuestbookVo guestbookVo = guestbookDao.guestbookDelete(no, pass);
-		System.out.println(guestbookVo);
-		
-		return guestbookVo;
+		return guestbookDao.guestbookDelete(guestbookVo);
 	}
 	
 	//ajax 방명록 글 삭제
 	public String remove(GuestbookVo guestbookVo) {
 		System.out.println("guestbookService>remove ajax");
 		
-		int count = guestbookDao.delete(guestbookVo);
+		int count = guestbookDao.guestbookDelete(guestbookVo);
 		
-		if(count>0) {
+		if(count>0) {//삭제 성공
 			return "success";
 		}else {
 			return "fail";

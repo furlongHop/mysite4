@@ -239,6 +239,7 @@
 	
 	/*class btnDelPop에 명령했을 경우 작동되지 않는다.
 	기존 화면(html)에 있던 data가 아닌 새로 로딩된 data(ajax)이기 때문에 부모(html에 있는 데이터)에게 시켜야 한다.
+	즉 html 파트에 존재하는 #listArea(부모)에 명령해 .btnDelPop(새로 그려진 리스트 안에 존재하는 삭제 버튼)이 작동하도록 간접적으로 이벤트를 잡는다.
 	이때 각 버튼을 구별하기 위해 클릭한 해당 버튼을 인식하는 this를 추가해야한다.
 	(jqueryex의 exam-15 파일 참조)*/
 	
@@ -252,60 +253,63 @@
 		//초기화
 		$("#modalPassword").val(""); //전에 입력했던 비밀번호 초기화(비밀번호 입력 팝업창 뜨기 전)
 		$("#modalNo").val(no); //해당 게시글 번호 넣어서 전달
-		$('#delModal').modal('show');
+		$('#delModal').modal('show');//삭제 모달창 띄우기
 		
 	});
 	
+	
 	//모달창의 삭제 버튼을 클릭했을 때
-	$("#modalBtnDel").on("click", function(){
+	$("#modalBtnDel").on("click", function() {
 		console.log("모달창 삭제 버튼 클릭");
-		
+
 		//데이터 수집
 		var no = $("#modalNo").val();
 		var pw = $("#modalPassword").val();
-		
+
 		var delInfoVo = {
-			no: no,
-			password: pw
+			//필드명: 변수 이름
+			no : no,
+			password : pw
 		};
-		
+
 		console.log(delInfoVo);
-		
+
 		//ajax 요청 --> no, password
 		$.ajax({
-				
-				url : "${pageContext.request.contextPath }/api/guestbook/remove",		
-				type : "post",
-				//contentType : "application/json",
-				data : delInfoVo,
-		
-				dataType : "json",
-				success : function(state){
-					console.log(state);
-					
-					if(state==='success'){
-						//해당 테이블 html 삭제
-						$("#t"+no).remove();
-						
-						//모달창 닫기
-						$('#delModal').modal('hide');
-						
-					}else {
-						//모달창 닫기
-						$('#delModal').modal('hide');
-						alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
-					}
-				
-					
-				},
-				error : function(XHR, status, error) {
-					console.error(status + " : " + error);
+
+			//경로에 remove가 있으므로 이에 의해 service에서 만들어진 if문에서 도출된 result 값이 도착한다.
+			url : "${pageContext.request.contextPath }/api/guestbook/remove",
+			type : "post",
+			//contentType : "application/json",
+			data : delInfoVo,
+
+			dataType : "json",
+			//service(if문)-->controller(result)-->ResponseBody-->state : 이러한 if문은 Service의 영역이다.
+			success : function(state) {//state: "success" or "fail"
+				console.log(state);
+
+				//화면에 반영되는 부분
+				if (state === 'success') {
+					//해당 테이블 html 삭제
+					$("#t" + no).remove();//table에 해당 no에 맞는 id를 주어 삭제된 방명록을 화면에서 삭제
+
+					//모달창 닫기 - bootstrap 제공
+					$('#delModal').modal('hide');
+
+				} else {
+					//모달창 닫기
+					$('#delModal').modal('hide');
+					alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
 				}
+
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
 		});//ajax
-			
+
 	});
 
-	
 	//리스트 출력
 	function fetchList() {
 		$.ajax({
@@ -325,7 +329,7 @@
 
 				for (var i = 0; i < guestbookList.length; i++) {
 
-					render(guestbookList[i],"down"); //방명록 리스트 그리기
+					render(guestbookList[i], "down"); //방명록 리스트 그리기
 				}
 
 			},
@@ -339,7 +343,7 @@
 	function render(guestbookVo, updown) {
 
 		var str = '';
-		str += '<table class="guestRead">';
+		str += '<table id="t' + guestbookVo.no + '"class="guestRead">';
 		str += '	<colgroup>';
 		str += '		<col style="width: 10%;">';
 		str += '		<col style="width: 40%;">';
@@ -358,19 +362,17 @@
 				+ '</td>';
 		str += '	</tr>';
 		str += '</table>';
-		
+
 		//방명록 추가시 방향 설정
-		if(updown == 'down'){//뒤(아래)에 추가
+		if (updown == 'down') {//뒤(아래)에 추가
 			$("#listArea").append(str);
-		}else if(updown == 'up'){//앞(위)에 추가
+		} else if (updown == 'up') {//앞(위)에 추가
 			$("#listArea").prepend(str);
-		}else {
+		} else {
 			console.log("방향오류");
 		}
-		
-		
+
 	};//render
-		
 </script>
 
 </html>
