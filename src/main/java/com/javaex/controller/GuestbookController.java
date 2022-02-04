@@ -53,12 +53,24 @@ public class GuestbookController {
 		return "guestbook/deleteForm";
 	} 
 	
+	/*
 	//방명록 삭제하기
 	@RequestMapping(value="/delete")
 	public String delete(@RequestParam("no") int no, @RequestParam("password") String pass) {
 		System.out.println("GuestbookController>delete");
 		
 		guestbookService.delete(no, pass);
+		
+		return "redirect:/guestbook/list";
+	} 
+	*/
+	
+	//방명록 삭제하기
+	@RequestMapping(value="/delete")
+	public String delete(@ModelAttribute GuestbookVo guestbookVo) {
+		System.out.println("GuestbookController>delete");
+		
+		guestbookService.delete(guestbookVo);
 		
 		return "redirect:/guestbook/list";
 	} 
