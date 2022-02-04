@@ -62,7 +62,7 @@ public class BoardController {
 		System.out.println("boardController>writeForm");
 
 	
-		return "board/write";
+		return "board/writeForm";
 	}
 	
 	

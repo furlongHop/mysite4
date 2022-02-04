@@ -72,7 +72,10 @@
 								</span>
 							</div>
 							
-							<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm?bNo=${board.no}">수정</a>
+							<c:if test="${board.userNo == authUser.no }">
+								<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm?no=${board.no}">수정</a>
+							</c:if>
+							
 							<a id="btn_modify" href="${pageContext.request.contextPath}/board/list">목록</a>
 							
 						</form>
