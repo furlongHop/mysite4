@@ -216,7 +216,7 @@
 			url : "${pageContext.request.contextPath}/api/guestbook/write2",
 			type : "post",
 			contentType : "application/json",
-			data : JSON.stringfy(guestbookVo), //자바 스크립트 객체를 json 형식으로 변경 
+			data : JSON.stringfy(guestbookVo), //자바 스크립트 객체를 json 형식으로 변경 <--파라미터 형식과 다른 점
 
 			/*응답 받을 데이터*/
 			dataType : "json", 

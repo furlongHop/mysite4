@@ -51,7 +51,7 @@ public class ApiGuestbookController {
 		return gVo;
 	}
 	
-	@ResponseBody
+	@ResponseBody //json 방식으로 data만 보내기 때문에 response body에 넣어줘야 정상적으로 data가 보내질 수 있다.
 	@RequestMapping("/write2")
 	public GuestbookVo write2(@RequestBody GuestbookVo guestbookVo) {
 		System.out.println("ApiGuestbookController.write2()");
