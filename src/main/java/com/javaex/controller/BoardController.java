@@ -1,6 +1,9 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @RequestMapping(value = "/board", method = { RequestMethod.GET, RequestMethod.POST })
 @Controller
@@ -31,6 +35,26 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	// 게시판 목록 (리스트+페이징)
+	@RequestMapping(value = "/list2")
+	public String list2(Model model, 
+						//@RequestParam을 쓸 때엔 반드시 그 값이 존재해야 한다. 없을 수도 있다면 그 경우 디폴트값으로 보낼 수 있게 코드를 추가해야 한다.
+						//required = false: 해당 파라미터를 받지 못했다면, defaultValue = "1": 해당 파라미터 값을 1로 처리한다.
+						@RequestParam(value = "crtPage", required = false, defaultValue = "1") int crtPage) {
+		System.out.println("boardController>list2");
+		System.out.println(crtPage);
+		
+		//해당 페이지의 글 목록 10개
+		Map<String, Object> pMap = boardService.getBoardList(crtPage);
+		
+		model.addAttribute("pMap", pMap);
+		
+		
+		return "board/list";
+	}
+		
+		
+	
 	// 게시글 읽기
 	@RequestMapping(value = "/read")
 	public String read(@RequestParam("no") int no, Model model) {
@@ -48,9 +72,11 @@ public class BoardController {
 	
 	// 게시글 작성
 	@RequestMapping(value = "/write")
-	public String write(@ModelAttribute BoardVo boardVo) {
+	public String write(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("boardController>write");
 
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		boardVo.setUserNo(authUser.getNo());
 		boardService.boardInsert(boardVo);
 	
 		return "redirect:/board/list";

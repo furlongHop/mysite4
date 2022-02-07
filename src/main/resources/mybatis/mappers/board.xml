@@ -16,9 +16,56 @@
 	        		to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') regDate
 			from board bd, users u
 			where bd.user_no = u.no
-			order by regDate desc
+			order by no desc
     	]]>
 	</select>
+	
+	<!-- 게시판 목록 (리스트 + 페이징)-->
+	<select id="selectList2" parameterType="map" resultType="com.javaex.vo.BoardVo">
+    	<![CDATA[
+	    	select  rt.rn,
+	    			rt.no,
+			        rt.title,
+			        rt.content,
+			        rt.hit,
+			        rt.regDate,
+			        rt.userNo,
+			        rt.userName
+			from   (select  rownum rn,
+							ot.no,
+			                ot.title,
+			                ot.content,
+			                ot.hit,
+			                ot.regDate,
+			                ot.userNo,
+			                ot.userName
+			        from   (select    b.no,
+				                      b.title,
+				                      b.content,
+				                      b.hit,
+				                      to_char(b.reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
+				                      u.name userName,
+				                      u.no userNo
+			                from board b, users u
+			                where b.user_no = u.no
+			                order by b.no desc
+			                ) ot
+			        ) rt
+			where rn >= #{startRnum}
+			and rn <= #{endRnum}
+    	]]>
+	</select>
+	
+	<!-- 전체 글 개수 카운트 -->
+	<select id= "totalCount" resultType="int">
+		<![CDATA[
+			select count(*)
+			from board b, users u
+			where b.user_no = u.no
+		]]>
+	</select>
+	
+	
 	
 	<!-- 조회수 증가 -->
 	<update id="updateHit" parameterType="int">

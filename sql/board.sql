@@ -74,6 +74,75 @@ commit;
 drop table board;
 drop sequence seq_board_no;
 
+--9. 페이징(rownum)
 
+--9-3). 원하는 만큼 잘라내기(조건절 이용할 수 있게 subquery 사용)
+select  rt.rn,
+        rt.no,
+        rt.title,
+        rt.content,
+        rt.hit,
+        rt.regDate,
+        rt.userNo,
+        rt.userName
+from (select    rownum rn,
+                ot.no,
+                ot.title,
+                ot.content,
+                ot.hit,
+                ot.regDate,
+                ot.userNo,
+                ot.userName
+        from (select  b.no,
+                      b.title,
+                      b.content,
+                      b.hit,
+                      to_char(b.reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
+                      u.name userName,
+                      u.no userNo
+              from board b, users u
+              where b.user_no = u.no
+              order by b.no desc
+              ) ot
+        ) rt
+where rn >= 11
+and rn <= 20;
 
+--ot: ordered table, rt: rownum table
+
+--9-2). 원하는 정렬대로 rownum 추가
+select  rownum rn,
+        ot.title,
+        ot.content,
+        ot.hit,
+        ot.regDate,
+        ot.userNo,
+        ot.userName
+from (select  b.no,
+              b.title,
+              b.content,
+              b.hit,
+              to_char(b.reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
+              u.name userName,
+              u.no userNo
+      from board b, users u
+      where b.user_no = u.no
+      order by b.no desc) ot;
+
+--9-1). 정렬
+select  b.no,
+        b.title,
+        b.content,
+        b.hit,
+        to_char(b.reg_date, 'yyyy-mm-dd hh:mi:ss') regDate,
+        u.name userName,
+        u.no userNo
+from board b, users u
+where b.user_no = u.no
+order by b.no desc;
+
+--10. 하단 페이지 버튼
+select count(*)
+from board b, users u
+where b.user_no = u.no;
 
