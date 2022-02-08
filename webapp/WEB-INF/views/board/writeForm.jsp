@@ -41,7 +41,7 @@
 				<div id="board">
 					<div id="writeForm">
 						<form action="${pageContext.request.contextPath}/board/write" method="get">
-							<input type="hidden" name="user_no" value="${userNo}">
+							
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>

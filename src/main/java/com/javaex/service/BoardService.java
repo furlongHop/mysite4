@@ -11,7 +11,7 @@ import com.javaex.dao.BoardDao;
 import com.javaex.vo.BoardVo;
 
 @Service
-public class BoardService {
+public class BoardService {//business logic: 서비스는 자료의 조작, 계산의 수행을 담당한다.
 
 	@Autowired
 	private BoardDao boardDao;
