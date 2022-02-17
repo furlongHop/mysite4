@@ -83,6 +83,8 @@ public class UserController {
 	public String join(@ModelAttribute UserVo userVo) {
 		System.out.println("UserController>join");
 
+		System.out.println(userVo);
+		
 		userService.join(userVo);
 
 		return "user/joinOk";
